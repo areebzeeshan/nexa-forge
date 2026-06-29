@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Nebula — Premium Web Design & Digital Agency',
+  title: 'Nexa Forge — Premium Web Design & Digital Agency',
   description:
     'We build digital masterpieces that convert. Custom websites, eCommerce, branding, and marketing for ambitious brands worldwide.',
   generator: 'v0.app',
