@@ -36,34 +36,34 @@
 :root {
   --radius: 0.75rem;
 
-  /* Deep black surfaces */
-  --background: oklch(0.12 0.005 260);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.16 0.006 260);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.16 0.006 260);
-  --popover-foreground: oklch(0.98 0 0);
+  /* Light surfaces */
+  --background: oklch(0.98 0.005 260);
+  --foreground: oklch(0.12 0.005 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.005 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.005 260);
 
   /* Electric blue primary */
   --primary: oklch(0.62 0.2 258);
   --primary-foreground: oklch(0.99 0 0);
 
-  --secondary: oklch(0.22 0.01 260);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.94 0.01 260);
+  --secondary-foreground: oklch(0.12 0.005 260);
 
-  --muted: oklch(0.2 0.008 260);
-  --muted-foreground: oklch(0.7 0.015 260);
+  --muted: oklch(0.96 0.008 260);
+  --muted-foreground: oklch(0.5 0.015 260);
 
   /* Cyan accent */
   --accent: oklch(0.78 0.16 195);
-  --accent-foreground: oklch(0.14 0.01 260);
+  --accent-foreground: oklch(0.12 0.005 260);
 
   /* Violet for gradient pairing */
   --violet: oklch(0.55 0.24 290);
 
   --destructive: oklch(0.6 0.24 25);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 14%);
   --ring: oklch(0.62 0.2 258);
 }
 
@@ -100,10 +100,10 @@
   .bg-grid {
     background-image: linear-gradient(
         to right,
-        oklch(1 0 0 / 4%) 1px,
+        oklch(0 0 0 / 4%) 1px,
         transparent 1px
       ),
-      linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
+      linear-gradient(to bottom, oklch(0 0 0 / 4%) 1px, transparent 1px);
     background-size: 56px 56px;
   }
 
