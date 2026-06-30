@@ -26,6 +26,18 @@ const services = [
       'High-converting online stores with seamless checkout, payments, and inventory built to scale.',
   },
   {
+    icon: Code2,
+    title: 'B2B Portal',
+    description:
+      'Bespoke, conversion-focused websites engineered for speed, SEO, and unforgettable first impressions.',
+  },
+  {
+    icon: Code2,
+    title: 'B2C Portal',
+    description:
+      'Bespoke, conversion-focused websites engineered for speed, SEO, and unforgettable first impressions.',
+  },
+  {
     icon: PenTool,
     title: 'Logo & Brand Identity',
     description:
@@ -79,10 +91,10 @@ export function Services() {
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 {s.description}
               </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+              {/* <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                 Learn More
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
+              </span> */}
             </motion.article>
           ))}
         </div>

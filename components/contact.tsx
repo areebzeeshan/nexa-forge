@@ -45,36 +45,40 @@ export function Contact() {
 
           <div className="mt-8 space-y-4">
             <a
-              href="tel:+18005550199"
+              href="tel:+13235975232"
               className="flex items-center gap-3 text-foreground"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
                 <Phone className="h-5 w-5" />
               </span>
-              +1 (800) 555-0199
+              +1 (323) 597 5232
             </a>
             <a
-              href="mailto:hello@nebula.studio"
+              href="mailto:info@nexaforgeagency.com"
               className="flex items-center gap-3 text-foreground"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
                 <Mail className="h-5 w-5" />
               </span>
-              hello@nebula.studio
+              info@nexaforgeagency.com
             </a>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {offices.map((o) => (
-              <div
-                key={o.country}
-                className="rounded-xl border border-border bg-card/50 p-4"
-              >
-                <MapPin className="h-4 w-4 text-accent" />
-                <p className="mt-2 text-sm font-semibold">{o.country}</p>
-                <p className="text-xs text-muted-foreground">{o.city}</p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-1">
+            <div className="rounded-xl border border-border bg-card/50 p-4">
+              <MapPin className="h-4 w-4 text-accent" />
+              <div className="mt-2 text-sm font-semibold">
+                United States
               </div>
-            ))}
+              <div className="mt-1 text-xs text-muted-foreground">
+                Los Angeles, California <br />
+                <span className="text-accent">+1 (323) 597-5232</span>
+              </div>
+              <div className="mt-4 h-px bg-muted-foreground" />
+              <p className="mt-4 text-xs text-muted-foreground">
+                Opening hours: Mon - Fri: 9am - 5pm
+              </p>
+            </div>
           </div>
         </div>
 

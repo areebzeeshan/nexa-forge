@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { SectionHeading } from './section-heading'
@@ -9,30 +10,33 @@ import { cn } from '@/lib/utils'
 const filters = ['All', 'Web Design', 'eCommerce', 'Branding', 'Mobile'] as const
 type Filter = (typeof filters)[number]
 
-const projects: {
+const galleryItems: {
+  id: string
   name: string
   category: Exclude<Filter, 'All'>
-  gradient: string
+  image: string
+  colSpan: number
+  rowSpan: number
 }[] = [
-  { name: 'Lumen Finance', category: 'Web Design', gradient: 'from-primary/40 to-violet-500/30' },
-  { name: 'Forma Store', category: 'eCommerce', gradient: 'from-accent/40 to-primary/30' },
-  { name: 'Atlas Studio', category: 'Branding', gradient: 'from-violet-500/40 to-accent/30' },
-  { name: 'Pulse Fitness', category: 'Mobile', gradient: 'from-primary/40 to-accent/30' },
-  { name: 'Verde Market', category: 'eCommerce', gradient: 'from-accent/40 to-violet-500/30' },
-  { name: 'Nova Health', category: 'Web Design', gradient: 'from-violet-500/40 to-primary/30' },
-  { name: 'Quill & Co', category: 'Branding', gradient: 'from-primary/30 to-accent/40' },
-  { name: 'Drift Travel', category: 'Mobile', gradient: 'from-accent/30 to-primary/40' },
-  { name: 'Kindred Law', category: 'Web Design', gradient: 'from-violet-500/30 to-accent/40' },
+  { id: '1', name: 'Lumen Finance', category: 'Web Design', image: '/placeholder.jpg', colSpan: 1, rowSpan: 1 },
+  { id: '2', name: 'Forma Store', category: 'eCommerce', image: '/placeholder.jpg', colSpan: 2, rowSpan: 2 },
+  { id: '3', name: 'Atlas Studio', category: 'Branding', image: '/placeholder.jpg', colSpan: 1, rowSpan: 2 },
+  { id: '4', name: 'Pulse Fitness', category: 'Mobile', image: '/placeholder.jpg', colSpan: 1, rowSpan: 1 },
+  { id: '5', name: 'Verde Market', category: 'eCommerce', image: '/placeholder.jpg', colSpan: 2, rowSpan: 1 },
+  { id: '6', name: 'Nova Health', category: 'Web Design', image: '/placeholder.jpg', colSpan: 1, rowSpan: 1 },
+  { id: '7', name: 'Quill & Co', category: 'Branding', image: '/placeholder.jpg', colSpan: 1, rowSpan: 2 },
+  { id: '8', name: 'Drift Travel', category: 'Mobile', image: '/placeholder.jpg', colSpan: 2, rowSpan: 1 },
+  { id: '9', name: 'Kindred Law', category: 'Web Design', image: '/placeholder.jpg', colSpan: 1, rowSpan: 1 },
 ]
 
 export function Portfolio() {
   const [active, setActive] = useState<Filter>('All')
   const visible =
-    active === 'All' ? projects : projects.filter((p) => p.category === active)
+    active === 'All' ? galleryItems : galleryItems.filter((p) => p.category === active)
 
   return (
     <section id="portfolio" className="bg-card/30 py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div>
         <SectionHeading
           eyebrow="Portfolio"
           title="Our Work Speaks"
@@ -60,44 +64,40 @@ export function Portfolio() {
 
         <motion.div
           layout
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[200px]"
         >
           <AnimatePresence mode="popLayout">
             {visible.map((p) => (
               <motion.article
-                key={p.name}
+                key={p.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35 }}
-                className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-border"
+                className="group relative overflow-hidden rounded-2xl border border-border"
+                style={{
+                  gridColumn: `span ${p.colSpan}`,
+                  gridRow: `span ${p.rowSpan}`,
+                }}
               >
-                <div
-                  className={cn(
-                    'absolute inset-0 bg-gradient-to-br',
-                    p.gradient,
-                  )}
+                <Image
+                  src={p.image}
+                  alt={p.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-grid opacity-40" />
-                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-background/95 via-background/40 to-transparent p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-background/95 via-background/40 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <span className="text-xs font-semibold uppercase tracking-widest text-accent">
                     {p.category}
                   </span>
-                  <h3 className="mt-1 font-heading text-xl font-bold">
+                  <h3 className="mt-1 font-heading text-lg font-bold">
                     {p.name}
                   </h3>
-                  <span className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+                  <span className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground">
                     View Project
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </div>
-                <div className="absolute bottom-4 left-6 transition-opacity duration-300 group-hover:opacity-0">
-                  <h3 className="font-heading text-lg font-bold text-foreground/90">
-                    {p.name}
-                  </h3>
-                  <span className="text-xs text-muted-foreground">
-                    {p.category}
+                    <ArrowUpRight className="h-3 w-3" />
                   </span>
                 </div>
               </motion.article>

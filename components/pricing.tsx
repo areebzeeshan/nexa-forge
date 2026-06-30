@@ -1,62 +1,230 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { SectionHeading } from './section-heading'
 import { cn } from '@/lib/utils'
 
-type Billing = 'monthly' | 'oneTime'
-
 const plans = [
   {
-    name: 'Starter',
-    tagline: 'For new businesses getting online',
-    monthly: 99,
-    oneTime: 299,
+    name: 'Starter Package',
+    tagline: 'Suitable for potential super-startups and brand revamps for companies',
+    price: 299,
+    deleted_price: 600,
+    discount: 50,
     features: [
-      'Up to 5 pages',
-      'Mobile responsive design',
-      'Contact form integration',
-      'Basic SEO setup',
-      '2 rounds of revisions',
+      '5 Stock Photos',
+      '5 Page Website',
+      '3 Banner Design',
+      '1 jQuery Slider Banner',
+      'FREE Google Friendly Sitemap',
+      'Complete W3C Certified HTML',
+      '48 to 72 hours TAT',
+      '100% Satisfaction Guarantee',
     ],
     popular: false,
   },
   {
-    name: 'Professional',
-    tagline: 'For growing brands that need more',
-    monthly: 199,
-    oneTime: 599,
+    name: 'Professional Package',
+    tagline: 'Suitable for potential super-startups and brand revamps for companies',
+    price: 599,
+    deleted_price: 1200,
+    discount: 50,
     features: [
-      'Up to 10 pages',
-      'CMS & blog integration',
-      'Advanced animations',
-      'On-page SEO + analytics',
-      'Unlimited revisions',
-      'Priority email support',
+      '10 Unique Pages Website',
+      'CMS / Admin Panel Support',
+      '8 Stock images',
+      '5 Banner Designs',
+      '1 jQuery Slider Banner',
+      'FREE Google Friendly Sitemap',
+      'Complete W3C Certified HTML',
+      '48 to 72 hours TAT',
+      'Complete Deployment',
+      '100% Satisfaction Guarantee',
+      '100% Unique Design Guarantee',
+      '100% Money Back Guarantee *',
+      'Mobile Responsive will be Additional $99*',
     ],
     popular: true,
   },
   {
-    name: 'Enterprise',
-    tagline: 'For ambitious, custom builds',
-    monthly: 499,
-    oneTime: 1499,
+    name: 'Elite Package',
+    tagline: 'Suitable for potential super-startups and brand revamps for companies',
+    price: 999,
+    deleted_price: 2000,
+    discount: 50,
     features: [
-      'Unlimited pages',
-      'Fully custom development',
-      'eCommerce & integrations',
-      'Dedicated project manager',
-      'Performance optimization',
-      '24/7 priority support',
+      'Upto 15 Unique Pages Website',
+      'Conceptual and Dynamic Website',
+      'Mobile Responsive',
+      'Online Reservation/Appointment Tool (Optional)',
+      'Online Payment Integration (Optional)',
+      'Custom Forms',
+      'Lead Capturing Forms (Optional)',
+      'Striking Hover Effects',
+      'Newsletter Subscription (Optional)',
+      'Newsfeed Integration',
+      'Social Media Integration',
+      'Search Engine Submission',
+      '5 Stock Photos',
+      '3 Unique Banner Design',
+      '1 jQuery Slider Banner',
+      'Complete W3C Certified HTML',
+      '48 to 72 hours TAT',
+      'Facebook Page Design',
+      'Twitter Page Design',
+      'YouTube Page Design',
+      'Complete Deployment',
+      '100% Satisfaction Guarantee',
+      '100% Unique Design Guarantee',
+      '100% Money Back Guarantee *',
+      'Buy Now',
+      'Live Chat',
+    ],
+    popular: false,
+  },
+   {
+    name: 'Custom Wordpress Website',
+    tagline: 'Suitable for potential super-startups and brand revamps for companies',
+    price: 1599,
+    deleted_price: 3200,
+    discount: 50,
+    features: [
+      '15 to 20 Pages Website',
+      'Custom Made, Interactive, Dynamic & High End Design',
+      'Custom WP',
+      '1 jQuery Slider Banner',
+      'Up to 10 Custom Made Banner Designs',
+      '10 Stock Images',
+      'Unlimited Revisions',
+      'Special Hoover Effects',
+      'Content Management System (CMS)',
+      'Online Appointment/Scheduling/Online Ordering Integration (Optional)',
+      'Online Payment Integration (Optional)',
+      'Multi Lingual (Optional)',
+      'Custom Dynamic Forms (Optional)',
+      'Signup Area (For Newsletters, Offers etc.)',
+      'Search Bar',
+      'Live Feeds of Social Networks integration (Optional)',
+      'Mobile Responsive',
+      'FREE 5 Years Domain Name',
+      'Free Google Friendly Sitemap',
+      'Search Engine Submission',
+      'Complete W3C Certified HTML',
+      'Industry Specified Team of Expert Designers and Developers',
+      'Complete Deployment',
+      'Dedicated Accounts Manager',
+      'Facebook Page Design',
+      'Twitter Page Design',
+      'YouTube Page Design',
+      '100% Ownership Rights',
+      '100% Satisfaction Guarantee',
+      '100% Unique Design Guarantee',
+      '100% Money Back Guarantee *',
+    ],
+    popular: false,
+  },
+   {
+    name: 'Custom PHP Website',
+    tagline: 'Suitable for potential super-startups and brand revamps for companies',
+    price: 2499,
+    deleted_price: 5000,
+    discount: 50,
+    features: [
+      '15 to 20 Pages Website',
+      'Custom Made, Interactive, Dynamic & High End Design',
+      'Custom WP/PHP',
+      '1 jQuery Slider Banner',
+      'Up to 10 Custom Made Banner Designs',
+      '10 Stock Images',
+      'Unlimited Revisions',
+      'Special Hoover Effects',
+      'Content Management System (CMS)',
+      'Online Appointment/Scheduling/Online Ordering Integration (Optional)',
+      'Online Payment Integration (Optional)',
+      'Multi Lingual (Optional)',
+      'Custom Dynamic Forms (Optional)',
+      'Signup Area (For Newsletters, Offers etc.)',
+      'Search Bar',
+      'Live Feeds of Social Networks integration (Optional)',
+      'Mobile Responsive',
+      '15 Seconds 2D Explainer Video',
+      'Voice - Over & Sound Effects',
+      'Professional Script Writing',
+      'Storyboard',
+      'SEO Meta Tags',
+      'FREE 5 Years Domain Name',
+      'Free Google Friendly Sitemap',
+      'Search Engine Submission',
+      'Complete W3C Certified HTML',
+      'Industry Specified Team of Expert Designers and Developers',
+      'Complete Deployment',
+      'Dedicated Accounts Manager',
+      '100% Ownership Rights',
+      '100% Satisfaction Guarantee',
+      '100% Unique Design Guarantee',
+      '100% Money Back Guarantee *',
+    ],
+    popular: false,
+  },
+   {
+    name: 'Automated Portal Website',
+    tagline: 'Suitable for potential Mid Sized and Enterprise companies.',
+    price: 4999,
+    deleted_price: 10000,
+    discount: 50,
+    features: [
+      'Unlimited Page Website',
+      'Custom Content Management System (CMS)',
+      'Unique Pages and UI Design',
+      'Complete Custom Development',
+      'Process Automation Tools',
+      'Newsfeed Integration',
+      'Social Media Plugins Integration',
+      'Up to 40 Stock images',
+      '10 Unique Banner Designs',
+      'JQuery Slider',
+      'Search Engine Submission',
+      'Free Google Friendly Sitemap',
+      'Custom Email Addresses',
+      'Social Media Page Designs (Facebook, Twitter, Instagram)',
+      'Complete W3C Certified HTML',
+      'Complete Deployment',
+      '100% Satisfaction Guarantee',
+      '100% Unique Design Guarantee',
+      'Money Back Guarantee',
+      'Automated Course Creation',
+      'Video Conferencing',
+      'Skills/Certification Tracking',
+      'Mobile Learning',
+      'Asynchronous Learning',
+      'CRM Features',
+      'Gamification',
+      'Social Learning/Message Boards',
+      'Motivational Triggers',
+      'Forums And Webinars',
+      'E-commerce And Subscriptions',
+      'Online Course Booking',
+      'Excellent Reporting',
+      'Invoicing Integration',
+      'Financial Integrations',
+      'Student Information management',
+      'Automated communications',
+      'Learning Management System',
+      'Quick And Easy Course Scheduling',
+      'Reporting And Data Analysis',
+      'Assessment Management & Live Feedback',
+      'Gradebooks',
+      'Quick User Integration',
+      'Easy Payment Methods',
+      'Online Communities & Social Engagement',
+      'Curation of Resources And Adding Own Resources',
     ],
     popular: false,
   },
 ]
 
 export function Pricing() {
-  const [billing, setBilling] = useState<Billing>('monthly')
 
   return (
     <section id="pricing" className="py-24">
@@ -67,43 +235,6 @@ export function Pricing() {
           highlight="Pricing"
           badge="No Hidden Fees"
         />
-
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <span
-            className={cn(
-              'text-sm font-medium',
-              billing === 'monthly' ? 'text-foreground' : 'text-muted-foreground',
-            )}
-          >
-            Monthly
-          </span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={billing === 'oneTime'}
-            onClick={() =>
-              setBilling((b) => (b === 'monthly' ? 'oneTime' : 'monthly'))
-            }
-            className="relative h-7 w-14 rounded-full border border-border bg-secondary"
-          >
-            <motion.span
-              layout
-              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              className={cn(
-                'absolute top-0.5 h-5 w-5 rounded-full bg-primary',
-                billing === 'oneTime' ? 'left-8' : 'left-1',
-              )}
-            />
-          </button>
-          <span
-            className={cn(
-              'text-sm font-medium',
-              billing === 'oneTime' ? 'text-foreground' : 'text-muted-foreground',
-            )}
-          >
-            One-Time
-          </span>
-        </div>
 
         <div className="mt-14 grid items-center gap-6 lg:grid-cols-3">
           {plans.map((plan, i) => (
@@ -135,13 +266,23 @@ export function Pricing() {
               </p>
               <div className="mt-6 flex items-end gap-1">
                 <span className="font-heading text-5xl font-extrabold">
-                  ${billing === 'monthly' ? plan.monthly : plan.oneTime}
+                  ${plan.price}
                 </span>
-                <span className="mb-1.5 text-sm text-muted-foreground">
-                  {billing === 'monthly' ? '/mo' : 'one-time'}
+                <span className="text-muted-foreground flex flex-col">
+                  {plan.deleted_price && (
+                    <span className="line-through">${plan.deleted_price}</span>
+                  )}
+                  {plan.discount && (
+                    <span className="ml-2 text-primary">{plan.discount}% off</span>
+                  )}
                 </span>
               </div>
-              <ul className="mt-7 flex-1 space-y-3">
+              <ul 
+                className={cn(
+                  'mt-7 flex-1 space-y-3',
+                  plan.features.length > 8 ? 'max-h-64 overflow-y-auto pr-2' : ''
+                )}
+              >
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-3 text-sm">
                     <span className="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-accent/20 text-accent">
