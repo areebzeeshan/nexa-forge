@@ -1,14 +1,24 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useState, type FormEvent, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Loader2, Mail, MapPin, Phone, Send } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 const offices = [
-  { country: 'United States', city: 'New York, NY' },
-  { country: 'United Kingdom', city: 'London, UK' },
-  { country: 'Canada', city: 'Toronto, ON' },
-]
+  {
+    city: 'Toronto, Ontario',
+    country: 'Canada',
+  },
+  {
+    city: 'London',
+    country: 'United Kingdom',
+  },
+  {
+    city: 'Los Angeles',
+    country: 'United States',
+  },
+];
 
 const services = [
   'Custom Website Design',
@@ -20,12 +30,32 @@ const services = [
 ]
 
 export function Contact() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'sent'>('idle')
+  const formRef = useRef<HTMLFormElement>(null)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    if (!formRef.current) return
+
     setStatus('loading')
-    setTimeout(() => setStatus('sent'), 1600)
+
+    emailjs
+      .sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      .then(() => {
+        setStatus('sent')
+        formRef.current?.reset()
+        setTimeout(() => setStatus('idle'), 4000)
+      })
+      .catch((error) => {
+        console.error('EmailJS error:', error)
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 4000)
+      })
   }
 
   return (
@@ -44,19 +74,13 @@ export function Contact() {
           </p>
 
           <div className="mt-8 space-y-4">
-            <a
-              href="tel:+13235975232"
-              className="flex items-center gap-3 text-foreground"
-            >
+            <a href="tel:+13235975232" className="flex items-center gap-3 text-foreground">
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
                 <Phone className="h-5 w-5" />
               </span>
               +1 (323) 597 5232
             </a>
-            <a
-              href="mailto:info@nexaforgeagency.com"
-              className="flex items-center gap-3 text-foreground"
-            >
+            <a href="mailto:info@nexaforgeagency.com" className="flex items-center gap-3 text-foreground">
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
                 <Mail className="h-5 w-5" />
               </span>
@@ -64,25 +88,18 @@ export function Contact() {
             </a>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-1">
-            <div className="rounded-xl border border-border bg-card/50 p-4">
-              <MapPin className="h-4 w-4 text-accent" />
-              <div className="mt-2 text-sm font-semibold">
-                United States
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {offices.map((office, i) => (
+              <div key={i} className="rounded-xl border border-border bg-card/50 p-4">
+                <MapPin className="h-4 w-4 text-accent" />
+                <div className="mt-2 text-sm font-semibold">{office.city}, {office.country}</div>
               </div>
-              <div className="mt-1 text-xs text-muted-foreground">
-                Los Angeles, California <br />
-                <span className="text-accent">+1 (323) 597-5232</span>
-              </div>
-              <div className="mt-4 h-px bg-muted-foreground" />
-              <p className="mt-4 text-xs text-muted-foreground">
-                Opening hours: Mon - Fri: 9am - 5pm
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 
         <motion.form
+          ref={formRef}
           onSubmit={handleSubmit}
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -92,72 +109,42 @@ export function Contact() {
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Name" htmlFor="name">
-              <input
-                id="name"
-                name="name"
-                required
-                placeholder="Jane Doe"
-                className="input"
-              />
+              <input id="name" name="name" required placeholder="Jane Doe" className="input" />
             </Field>
             <Field label="Email" htmlFor="email">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                placeholder="jane@company.com"
-                className="input"
-              />
+              <input id="email" name="email" type="email" required placeholder="jane@company.com" className="input" />
             </Field>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <Field label="Phone" htmlFor="phone">
-              <input
-                id="phone"
-                name="phone"
-                placeholder="+1 (555) 000-0000"
-                className="input"
-              />
+              <input id="phone" name="phone" placeholder="+1 (555) 000-0000" className="input" />
             </Field>
             <Field label="Service" htmlFor="service">
               <select id="service" name="service" required className="input">
                 <option value="">Select a service</option>
                 {services.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
+                  <option key={s} value={s}>{s}</option>
                 ))}
               </select>
             </Field>
           </div>
           <div className="mt-4">
             <Field label="Message" htmlFor="message">
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows={4}
-                placeholder="Tell us about your project..."
-                className="input resize-none"
-              />
+              <textarea id="message" name="message" required rows={4} placeholder="Tell us about your project..." className="input resize-none" />
             </Field>
           </div>
 
           <button
             type="submit"
-            disabled={status !== 'idle'}
+            disabled={status === 'loading'}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:glow-primary disabled:opacity-70"
           >
-            {status === 'loading' && (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            )}
+            {status === 'loading' && <Loader2 className="h-4 w-4 animate-spin" />}
             {status === 'idle' && <Send className="h-4 w-4" />}
-            {status === 'idle'
-              ? 'Send Message'
-              : status === 'loading'
-                ? 'Sending...'
-                : 'Message Sent!'}
+            {status === 'idle' && 'Send Message'}
+            {status === 'loading' && 'Sending...'}
+            {status === 'sent' && 'Message Sent!'}
+            {status === 'error' && 'Failed — Try Again'}
           </button>
         </motion.form>
       </div>
@@ -195,9 +182,7 @@ function Field({
 }) {
   return (
     <label htmlFor={htmlFor} className="block">
-      <span className="mb-1.5 block text-sm font-medium text-foreground">
-        {label}
-      </span>
+      <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
       {children}
     </label>
   )

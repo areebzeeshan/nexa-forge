@@ -1,6 +1,7 @@
 'use client'
 
 import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 import type { SVGProps } from 'react'
 
 function FacebookIcon(props: SVGProps<SVGSVGElement>) {
@@ -69,12 +70,15 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <a href="#home" className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Sparkles className="h-5 w-5" />
-              </span>
-              <span className="font-heading text-xl font-extrabold">
-                Nebula<span className="text-primary">.</span>
-              </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg text-primary-foreground overflow-hidden sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-28 lg:w-28">
+                <Image
+                  src="/nexa-forge.png"
+                  alt="Nexa Forge"
+                  width={112}
+                  height={112}
+                  className="h-full w-full object-contain"
+                />
+              </div>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               A premium digital studio crafting websites, brands, and apps that
@@ -107,16 +111,16 @@ export function Footer() {
               Contact
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
-              <li>+1 (800) 555-0199</li>
-              <li>hello@nebula.studio</li>
-              <li>New York · London · Toronto</li>
+              <li>+1 (323) 597 5232</li>
+              <li>info@nexaforgeagency.com</li>
+              <li>Los Angeles, California</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Nebula Studio. All rights reserved.
+            © {new Date().getFullYear()} Nexa Forge Agency. All rights reserved.
           </p>
           <div className="flex gap-3">
             {socials.map((s) => (

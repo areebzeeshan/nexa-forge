@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 const testimonials = [
   {
     quote:
-      'Nebula rebuilt our site and conversions jumped 180% in the first quarter. The team is sharp, fast, and genuinely cares about results.',
+      'Nexa Forge rebuilt our site and conversions jumped 180% in the first quarter. The team is sharp, fast, and genuinely cares about results.',
     name: 'Sarah Chen',
     role: 'CMO, Lumen Finance',
     initials: 'SC',
