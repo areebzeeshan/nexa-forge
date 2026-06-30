@@ -2,6 +2,8 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
 import './globals.css'
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
 
 const jakarta = Plus_Jakarta_Sans({
   variable: '--font-heading',
@@ -37,8 +39,10 @@ export default function RootLayout({
       className={`dark ${jakarta.variable} ${inter.variable} bg-background`}
     >
       <body className="font-sans antialiased">
+        <Navbar />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        <Footer />
       </body>
     </html>
   )

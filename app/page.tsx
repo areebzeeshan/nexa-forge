@@ -14,7 +14,6 @@ import { Footer } from '@/components/footer'
 export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
-      <Navbar />
       <Hero />
       <LogoMarquee />
       <Services />
@@ -25,7 +24,6 @@ export default function Home() {
       <Industries />
       <CTABanner />
       <Contact />
-      <Footer />
     </main>
   )
 }
