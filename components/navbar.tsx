@@ -12,7 +12,7 @@ const links = [
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Packages', href: '/pricing' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export function Navbar() {
