@@ -24,8 +24,8 @@ const services = [
   'Custom Website Design',
   'eCommerce Development',
   'Logo & Brand Identity',
-  'Mobile App Development',
-  'SEO & Digital Marketing',
+  'Social Media Marketing',
+  'SEO',
   'Video & Animation',
 ]
 

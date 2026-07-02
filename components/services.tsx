@@ -45,13 +45,13 @@ const services = [
   },
   {
     icon: Smartphone,
-    title: 'Mobile App Development',
+    title: 'Social Media Marketing',
     description:
-      'Native and cross-platform apps with polished UX that users love to return to every day.',
+      'Strategic social media management to grow your online presence and engage your audience.',
   },
   {
     icon: Megaphone,
-    title: 'SEO & Digital Marketing',
+    title: 'SEO',
     description:
       'Data-driven campaigns and SEO that grow qualified traffic and compound your revenue.',
   },

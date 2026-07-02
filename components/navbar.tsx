@@ -3,21 +3,31 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, Phone, X } from 'lucide-react'
+import { ChevronDown, Menu, Phone, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const links = [
   { label: 'Home', href: '#home' },
-  { label: 'Services', href: '/services' },
+  { label: 'Services', href: '/services', hasDropdown: true },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Packages', href: '/pricing' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
 
+const servicesDropdown = [
+  { label: 'Custom Website Design', href: '/services' },
+  { label: 'eCommerce Development', href: '/services' },
+  { label: 'Social Media Marketing', href: '/services' },
+  { label: 'Logo & Brand Identity', href: '/services' },
+  { label: 'SEO', href: '/services' },
+  { label: 'Video & Animation', href: '/services' },
+]
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -53,13 +63,45 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
-            <li key={l.href}>
+            <li
+              key={l.href}
+              className={l.hasDropdown ? 'relative' : ''}
+              onMouseEnter={() => l.hasDropdown && setDropdownOpen(true)}
+              onMouseLeave={() => l.hasDropdown && setDropdownOpen(false)}
+            >
               <a
                 href={l.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-colors hover:text-foreground"
+                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-colors hover:text-foreground"
               >
                 {l.label}
+                {l.hasDropdown && <ChevronDown className="h-4 w-4" />}
               </a>
+              {l.hasDropdown && (
+                <AnimatePresence>
+                  {dropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute left-0 top-full mt-2 w-56 rounded-xl border border-border bg-background/95 backdrop-blur-xl shadow-lg"
+                    >
+                      <ul className="py-2">
+                        {servicesDropdown.map((item) => (
+                          <li key={item.label}>
+                            <a
+                              href={item.href}
+                              className="block px-4 py-2 text-sm text-gray-800 transition-colors hover:bg-secondary hover:text-foreground"
+                            >
+                              {item.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </li>
           ))}
         </ul>
@@ -102,17 +144,56 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {links.map((l, i) => (
-                <motion.a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="rounded-md px-3 py-3 text-base font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
-                >
-                  {l.label}
-                </motion.a>
+                <div key={l.href}>
+                  {l.hasDropdown ? (
+                    <>
+                      <motion.button
+                        type="button"
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: i * 0.05 }}
+                        className="flex w-full items-center justify-between rounded-md px-3 py-3 text-base font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      >
+                        {l.label}
+                        <ChevronDown className={cn('h-4 w-4 transition-transform', dropdownOpen ? 'rotate-180' : '')} />
+                      </motion.button>
+                      <AnimatePresence>
+                        {dropdownOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden pl-4"
+                          >
+                            {servicesDropdown.map((item) => (
+                              <a
+                                key={item.label}
+                                href={item.href}
+                                onClick={() => setOpen(false)}
+                                className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground"
+                              >
+                                {item.label}
+                              </a>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <motion.a
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="rounded-md px-3 py-3 text-base font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    >
+                      {l.label}
+                    </motion.a>
+                  )}
+                </div>
               ))}
               <a
                 href="#contact"

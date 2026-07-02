@@ -45,9 +45,9 @@ const services = [
   },
   {
     icon: Smartphone,
-    title: 'Mobile App Development',
+    title: 'Social Media Marketing',
     description:
-      'Native and cross-platform apps with polished UX that users love to return to every day.',
+      'Strategic social media management to grow your online presence and engage your audience.',
   },
   {
     icon: Megaphone,
